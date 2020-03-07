@@ -1,6 +1,12 @@
 # Welcome to PyEncryption this is a encryption.
 
-## This is used to encrypt all the files and directories
+## This is used to encrypt all the files and directories using AES256
+
+## Python Libraries Needed:
+    optparse
+    Crypto
+    hashlib
+    base64
 
 ## It is used to encrypt files and folders
 
