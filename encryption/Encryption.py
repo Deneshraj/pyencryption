@@ -11,11 +11,16 @@ class Encryption:
     """
         This class encrypts the Files and Directories
     """
-    def __init__(self, key_file, verbose):
+    def __init__(self, key_file, verbose, password=None):
         self.key_file = key_file
         self.verbose = bool(verbose)
         self.key = ""
-        self.generate_key()
+        if type(password) == str:
+            self.key = password
+        else:
+            self.generate_key()
+
+        self.key = str(self.key).encode("utf-8")
     
     def get_file_content(self, joined_file, mode):
         text = ""
@@ -158,7 +163,7 @@ class Encryption:
             # with open(self.key_file, "rb") as f:
             #     file_text = f.read().decode("utf-8")
 
-            self.key = file_text.encode("utf-8")                        # If file exists store the key in key attribute
+            self.key = file_text                        # If file exists store the key in key attribute
         except FileNotFoundError:
             print(f"The Key file {self.key_file} is not found! Creating the new file!")
             chars = string.ascii_letters + string.digits + string.punctuation

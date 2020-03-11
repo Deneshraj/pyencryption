@@ -2,3 +2,4 @@ testdir/
 *.txt
 __pycache__
 encryption1.0.py
+*.key

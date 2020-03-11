@@ -1,6 +1,7 @@
 import os
 import sys
 import traceback
+import getpass
 from optparse import OptionParser
 
 from encryption.Encryption import Encryption
@@ -9,12 +10,17 @@ from encryption.Encryption import Encryption
 def main(file_name, directory_name, encrypt, decrypt, key_file, path, verbose, key_path):
     key_file_location = os.path.join(key_path, key_file + ".key")
     key_exist = os.path.isfile(key_file_location)
+    
+    password = None
+    if key_exist:
+        test = str(input(f"The key file exist! Do you want to use the key file {key_file_location} [Y or n]: ")).lower()
+        if test != "y":
+            password = getp(encrypt, decrypt)
+    else:
+        password = getp(encrypt, decrypt)
 
-    if (not key_exist) and decrypt:
-        print("The key file you Entered is Incorrect!")
-        sys.exit(1)
-    enc = Encryption(key_file_location, verbose)                                      # Instantiating the Encryption object
-
+    enc = Encryption(key_file_location, verbose, password)                                      # Instantiating the Encryption object
+    
     try:
         os.chdir(path)
     except Exception:
@@ -48,6 +54,27 @@ def main(file_name, directory_name, encrypt, decrypt, key_file, path, verbose, k
     else:
         print("Invalid Option! Exiting...")
         sys.exit(1)
+
+def getp(encrypt, decrypt):
+    if encrypt:
+        password = get_password("Please Enter the password to Encrypt: ")
+    else:
+        password = get_password("Please Enter the password to Decrypt: ", False)
+
+    return password
+# Getting the Password
+def get_password(input_msg, encrypt=True):
+    password = str(getpass.getpass("Enter the Password to encrypt the file (Leave blank to autogenerate the key): "))
+    if len(password) <= 0 and encrypt:
+        print("Auto generating the key!")
+        password = None
+    elif encrypt:
+        print("Encrypting using the password...")
+    elif not encrypt and len(password) <= 0:
+        print("Please Enter the Valid password!")
+        sys.exit(1)
+    
+    return password
 
 # Defining the Input Args
 def handle_args(parser):

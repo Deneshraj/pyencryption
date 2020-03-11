@@ -97,3 +97,6 @@ This will print verbose output
 
     Here the blank denotes that this argument is not needed if the files are in the current directory
 ## Please store the key file somewhere safely. If lost, then it is nearly Impossible to recover the encrypted data.
+
+# UPDATE
+Now inorder to avoid forgetting the key files, I've Included the functionality, that encrypts with the password and decrypts with password.
