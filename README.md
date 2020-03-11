@@ -99,4 +99,4 @@ This will print verbose output
 ## Please store the key file somewhere safely. If lost, then it is nearly Impossible to recover the encrypted data.
 
 # UPDATE
-Now inorder to avoid forgetting the key files, I've Included the functionality, that encrypts with the password and decrypts with password.
+Now inorder to avoid the problem of forgetting the key files, I've Included the functionality, that encrypts  and decrypts with password.
